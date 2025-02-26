@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: thulium_drake
+  description: Dante SOCKS proxy server
+  role_name: dante_proxy
+
+  license: GPLv3
+
+  min_ansible_version: '2.15'
+
+  platforms:
+    - name: EL
+      versions:
+        - '9'
+
+  galaxy_tags:
+    - dante
+    - proxy
+    - socks
+
+dependencies: []

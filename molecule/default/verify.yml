@@ -1,0 +1,22 @@
+---
+- name: 'Verify'
+  hosts: 'all'
+  gather_facts: false
+  tasks:
+    - name: 'Gather service facts'
+      ansible.builtin.service_facts:
+
+    - name: 'Verify that the service is running'
+      ansible.builtin.assert:
+        that:
+          - ansible_facts['services']['sockd.service']['state'] == 'running'
+
+    - name: 'Get URL through the proxy'  # noqa command-instead-of-module
+      ansible.builtin.command: curl -so /dev/null -w "%{http_code}" -Ix socks5://dante:8080 https://www.bitsoffreedom.nl
+      register: 'curl'
+      changed_when: false
+
+    - name: 'Verify that the service is working'
+      ansible.builtin.assert:
+        that:
+          - "'200' in curl['stdout_lines']"

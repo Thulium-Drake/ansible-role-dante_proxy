@@ -1,0 +1,5 @@
+---
+- name: 'Restart sockd'
+  ansible.builtin.service:
+    name: 'sockd'
+    state: 'restarted'

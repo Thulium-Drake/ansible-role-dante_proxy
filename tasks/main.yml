@@ -1,0 +1,21 @@
+---
+- name: 'Ensure packages'
+  ansible.builtin.package:
+    name:
+      - 'dante'
+      - 'dante-server'
+
+- name: 'Ensure configuration'
+  ansible.builtin.template:
+    src: 'sockd.conf.j2'
+    dest: '/etc/sockd.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: 'Restart sockd'
+
+- name: 'Ensure service'
+  ansible.builtin.service:
+    name: 'sockd'
+    state: 'started'
+    enabled: true

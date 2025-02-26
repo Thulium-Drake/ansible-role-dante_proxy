@@ -1,0 +1,36 @@
+logoutput: stdout
+debug: {{ dante_loglevel }}
+internal: {{ dante_listen_uri }} port = {{ dante_listen_port }}
+external: {{ dante_outgoing_uri }}
+clientmethod: {{ dante_client_authentication_methods }}
+socksmethod: {{ dante_socks_authentication_methods }}
+user.privileged: root
+user.notprivileged: nobody
+
+# When none of the rules below match, the client is denied access
+
+# Incoming client access rules
+{% for rule in dante_client_rules %}
+# {{ rule['comment'] }}
+client {{ rule['action'] }} {
+        from: {{ rule['from'] }} to: {{ rule['to'] }}
+        log: {{ rule['log'] | default('error connect disconnect') }}
+        {% if rule['authmethod'] is defined %}
+          clientmethod: {{ rule['authmethod'] }}
+          group: {{ rule['group'] }}
+        {% endif %}
+}
+{% endfor %}
+
+{% for rule in dante_socks_rules %}
+# {{ rule['comment'] }}
+socks {{ rule['action'] }} {
+        from: {{ rule['from'] }} to: {{ rule['to'] }}
+        log: {{ rule['log'] | default('error connect disconnect') }}
+        command: {{ rule['command'] | default('bind connect udpassociate') }}
+        {% if rule['authmethod'] is defined %}
+          socksmethod: {{ rule['socksmethod'] }}
+          group: {{ rule['group'] }}
+        {% endif %}
+}
+{% endfor %}
