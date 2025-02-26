@@ -30,3 +30,5 @@ dante_socks_rules:
     to: '0/0'
     command: 'bindreply udpreply'
     log: 'error'
+
+dante_route_rules: []
