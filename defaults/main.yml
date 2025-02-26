@@ -1,8 +1,8 @@
 ---
 # Connectivity
-dante_listen_uri: 'enp1s0'
+dante_listen_uri: "{{ ansible_facts['default_ipv4']['interface'] }}"
 dante_listen_port: '8080'
-dante_outgoing_uri: 'enp1s0'
+dante_outgoing_uri: "{{ ansible_facts['default_ipv4']['interface'] }}"
 
 # Logging
 dante_loglevel: 0

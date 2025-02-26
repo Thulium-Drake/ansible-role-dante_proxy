@@ -6,9 +6,9 @@ When using this role on RHEL(-like), ensure you have EPEL configured. This role 
 ## Configuration
 The role has been preconfigured to have sane details, which will allow any client to connect to any server that is reachable by your proxy server. Below is a list of all variables that are available for this role. For more information see [the defaults file](defaults/main.yml)
 
-* `dante_listen_uri`: The interface or IP address that Dante listens on (default: `eth0`)
+* `dante_listen_uri`: The interface or IP address that Dante listens on (default: default interface for IPv4 as determined by Ansible)
 * `dante_listen_port`: The port that Dante listens on (default: `8080`)
-* `dante_outgoing_uri`: The interface or IP address that Dante uses for outgoing connections (default: `eth0`)
+* `dante_outgoing_uri`: The interface or IP address that Dante uses for outgoing connections (default: default interface for IPv4 as determined by Ansible)
 
 * `dante_loglevel`: The level of detail in the logging (default: `0`)
 * `dante_client_authentication_methods`: Supported authentication methods in the server for connecting clients (default: `none`)
