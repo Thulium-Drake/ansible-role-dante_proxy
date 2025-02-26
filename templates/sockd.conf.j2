@@ -22,6 +22,7 @@ client {{ rule['action'] }} {
 }
 {% endfor %}
 
+# Outgoing SOCKS access rules
 {% for rule in dante_socks_rules %}
 # {{ rule['comment'] }}
 socks {{ rule['action'] }} {
@@ -29,8 +30,19 @@ socks {{ rule['action'] }} {
         log: {{ rule['log'] | default('error connect disconnect') }}
         command: {{ rule['command'] | default('bind connect udpassociate') }}
         {% if rule['authmethod'] is defined %}
-          socksmethod: {{ rule['socksmethod'] }}
+          socksmethod: {{ rule['authmethod'] }}
           group: {{ rule['group'] }}
+        {% endif %}
+}
+{% endfor %}
+
+# Routes
+{% for rule in dante_route_rules %}
+# {{ rule['comment'] }}
+route {
+        from: {{ rule['from'] }} to: {{ rule['to'] }} via: {{ rule['via'] }}
+        {% if rule['proxyprotocol'] is defined %}
+        proxyprotocol: {{ rule['proxyprotocol'] }}
         {% endif %}
 }
 {% endfor %}
