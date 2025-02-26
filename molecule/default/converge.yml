@@ -2,6 +2,6 @@
 - name: 'Converge'
   hosts: 'all'
   tasks:
-    - name: 'Run role'
-      ansible.builtin.import_role:
-        name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+    - name: 'Run role'  # noqa role-name[path]
+      ansible.builtin.include_role:
+        name: "../../../{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

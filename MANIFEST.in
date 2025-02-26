@@ -1,21 +1,6 @@
-# Include all, global-include seems to break on a automatically generated symlink
-graft defaults
-graft docs
-graft files
-graft .gitea
-graft handlers
-graft meta
-graft molecule
-graft playbooks
-graft tasks
-graft templates
-graft vars
-
-include .gitignore
-include .pre-commit-config.yaml
-include MANIFEST.in
-include LICENSE
-include README.md
+# Include all
+global-include *
 
 # Exclude dynamic or external stuff
 global-exclude *.swp *.pyc
+recursive-exclude .git *
